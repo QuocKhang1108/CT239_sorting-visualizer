@@ -9,6 +9,7 @@ public class CustomColor {
     public static Color comparingColor = new Color(253, 164, 0);
     public static Color swappingColor = new Color(0, 127, 0);
     public static Color sortedColor = new Color(15, 78, 155);
+    public static Color scanColor = new Color(0, 154, 139);
     public static Color text = new Color(39, 102, 208);
     public static Color textSelected = new Color(223, 223, 223);
     public static Color textInput = new Color(28, 27, 27);
