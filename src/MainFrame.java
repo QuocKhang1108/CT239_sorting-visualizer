@@ -81,9 +81,9 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         fpsLabel.setForeground(CustomColor.text);
 
         // slider
-        fpsSlider = new JSlider(JSlider.CENTER, 1, 501, FPS);
+        fpsSlider = new JSlider(JSlider.CENTER, 5, 505, FPS);
         fpsSlider.setMajorTickSpacing(100);
-        fpsSlider.setMinorTickSpacing(20);
+        fpsSlider.setMinorTickSpacing(25);
         fpsSlider.setPaintTicks(true);
         fpsSlider.setPaintLabels(true);
         fpsSlider.setPaintTrack(true);
