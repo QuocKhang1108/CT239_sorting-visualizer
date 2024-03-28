@@ -35,7 +35,6 @@ public class MainVisualizer {
 
     /////////////////////////////////////////DRAW////////////////////////////////////////////
     public void createRandomArray(int widthCanvas, int heightCanvas) {
-        System.out.println(speed);
         startTime = totalTime = comparisons = swaps = 0;
         listener.updateInformation(totalTime, comparisons, swaps);
         isSwapped = isBubbleSorted = isInsertSorted = isSelectionSorted = isMergeSorted = isQuickSorted = false;
@@ -96,7 +95,7 @@ public class MainVisualizer {
 
     private void scanAllColumns() {
         for (int i = 0; i < arr.length; i++) {
-            drawColorColumn(i, CustomColor.comparingColor);
+            drawColorColumn(i, CustomColor.scanColor);
 
             delay();
 
@@ -142,14 +141,15 @@ public class MainVisualizer {
                 }
                 drawColorColumn(j, CustomColor.sortedColor);
             }
-
             long tempTime = System.currentTimeMillis();
             totalTime = tempTime - startTime;
 
             scanAllColumns();
+
             graphics.dispose();
+
+            listener.updateInformation(totalTime, comparisons, swaps);
         } else errorMessage("Let's create array!!!", "Array creation error!");
-        listener.updateInformation(totalTime, comparisons, swaps);
     }
 
     public void insertSort() {
@@ -165,23 +165,31 @@ public class MainVisualizer {
             for (int i = 1; i < arr.length; i++) {
                 int key = arr[i];
                 int j = i - 1;
-                while (j >= 0 && arr[j] > key) {
+                drawColorColumn(i, CustomColor.sortedColor);
+                drawColorColumn(j, CustomColor.sortedColor);
+
+                while (j >= 0) {
                     drawColorComparingColumns(j, j + 1, CustomColor.comparingColor);
                     comparisons++;
-                    swaps++;
-                    swap(j, j + 1);
+
+                    if (arr[j] > key) {
+                        swap(j, j + 1);
+                        swaps++;
+                    } else {
+                        break;
+                    }
                     j--;
                 }
-                drawColorColumn(j + 1, CustomColor.sortedColor);
             }
-
             long tempTime = System.currentTimeMillis();
             totalTime = tempTime - startTime;
 
             scanAllColumns();
+
             graphics.dispose();
+
+            listener.updateInformation(totalTime, comparisons, swaps);
         } else errorMessage("Let's create array!!!", "Array creation error!");
-        listener.updateInformation(totalTime, comparisons, swaps);
     }
 
     public void selectionSort() {
