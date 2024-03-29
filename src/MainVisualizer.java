@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -98,9 +99,6 @@ public class MainVisualizer {
     private void scanAllColumns() {
         for (int i = 0; i < arr.length; i++) {
             drawColorColumn(i, CustomColor.scanColor);
-
-            delay();
-
             drawColorColumn(i, CustomColor.sortedColor);
         }
     }
@@ -248,7 +246,7 @@ public class MainVisualizer {
             comparisons = 0;
             swaps = 0;
 
-            sort(0, arr.length - 1);
+            mergeSort(0, arr.length - 1);
 
             long tempTime = System.currentTimeMillis();
             totalTime = tempTime - startTime;
@@ -261,13 +259,13 @@ public class MainVisualizer {
         } else errorMessage("Array creation error!", "Let's create array!!!");
     }
 
-    private void sort(int l, int r) {
+    private void mergeSort(int l, int r) {
         if (l < r) {
             int m = (l + r) / 2;
 
             //sort first and second halves
-            sort(l, m);
-            sort(m + 1, r);
+            mergeSort(l, m);
+            mergeSort(m + 1, r);
 
             //merge the sorted halves
             merge(l, m, r);
@@ -339,7 +337,57 @@ public class MainVisualizer {
     }
 
     public void quickSort() {
+        if (hasArray) {
+            graphics = bufferStrategy.getDrawGraphics();
 
+            startTime = System.currentTimeMillis();
+//            Algorithm.quickSort(arr.clone());
+
+            comparisons = 0;
+            swaps = 0;
+
+            quickSort(0, arr.length - 1);
+
+            long tempTime = System.currentTimeMillis();
+            totalTime = tempTime - startTime;
+
+            scanAllColumns();
+
+            graphics.dispose();
+
+            listener.updateInformation(totalTime, comparisons, swaps);
+        } else errorMessage("Array creation error!", "Let's create array!!!");
+    }
+
+    private void quickSort(int start, int end) {
+        if (start < end) {
+            int pivot = partition(start, end);
+
+            quickSort(start, pivot - 1);
+            quickSort(pivot + 1, end);
+        }
+    }
+
+    private int partition(int start, int end) {
+        int pivot = arr[end];
+        int i = start - 1;
+        for (int j = start; j < end; j++) {
+            drawColorComparingColumns(j, end, CustomColor.comparingColor);
+            comparisons++;
+
+            if (arr[j] < pivot) {
+                i++;
+                if (i != j) {
+                    swap(i, j);
+                    swaps++;
+                }
+            }
+        }
+        if (i + 1 != end && !Objects.equals(arr[i + 1], arr[end])) {
+            swap(i + 1, end);
+            swaps++;
+        }
+        return i + 1;
     }
 ////////////////////////////////*ALGORITHMS VISUALIZER*//////////////////////////////////
 
