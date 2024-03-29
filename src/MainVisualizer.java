@@ -7,8 +7,9 @@ import java.util.concurrent.TimeUnit;
 public class MainVisualizer {
     private static final int paddingMainVisualizer = 10;
     private Column[] columns;
+
     //each unit height is equivalent to 6,
-    // the greatest height is 100<=>106, the smallest height is 0<=>6
+    // the greatest height is 100<=>606, the smallest height is 0<=>6
     private static final int maxColumnHeight = 606, minColumnHeight = 6;
 
     private Integer[] arr;
@@ -42,7 +43,7 @@ public class MainVisualizer {
         columns = new Column[capacity];
         hasArray = true;
 
-//        define layout space for the columns, have padding = 20
+//        define layout space for the columns, have padding = 10
         double x = paddingMainVisualizer, y = heightCanvas - paddingMainVisualizer;
 //        define the width of all columns based on the capacity
         double width = (double) (widthCanvas - paddingMainVisualizer * 2) / capacity;
@@ -75,6 +76,7 @@ public class MainVisualizer {
     }
 
     private void drawColorColumn(int i, Color color) {
+        columns[i].clear(graphics);
         columns[i].setColor(color);
         columns[i].draw(graphics);
         bufferStrategy.show();
@@ -237,7 +239,103 @@ public class MainVisualizer {
     }
 
     public void mergeSort() {
+        if (hasArray) {
+            graphics = bufferStrategy.getDrawGraphics();
 
+            startTime = System.currentTimeMillis();
+//            Algorithm.mergeSort(arr.clone());
+
+            comparisons = 0;
+            swaps = 0;
+
+            sort(0, arr.length - 1);
+
+            long tempTime = System.currentTimeMillis();
+            totalTime = tempTime - startTime;
+
+            scanAllColumns();
+
+            graphics.dispose();
+
+            listener.updateInformation(totalTime, comparisons, swaps);
+        } else errorMessage("Array creation error!", "Let's create array!!!");
+    }
+
+    private void sort(int l, int r) {
+        if (l < r) {
+            int m = (l + r) / 2;
+
+            //sort first and second halves
+            sort(l, m);
+            sort(m + 1, r);
+
+            //merge the sorted halves
+            merge(l, m, r);
+        }
+    }
+
+    private void merge(int l, int m, int r) {
+//        int n1 = m - l + 1;
+//        int n2 = r - m;
+//
+//        Integer[] L = new Integer[n1];
+//        Integer[] R = new Integer[n2];
+//
+//        for (int i = 0; i < n1; i++) {
+//            L[i] = arr[l + i];
+//        }
+//        for (int i = 0; i < n2; i++) {
+//            R[i] = arr[m + 1 + i];
+//        }
+//
+//        int i = 0, j = 0, k = l;
+//
+//        while (i < n1 && j < n2) {
+//            drawColorComparingColumns(l + i, m + 1 + j, CustomColor.comparingColor);
+//            comparisons++;
+//
+//            columns[k].clear(graphics);
+//
+//            if (L[i] <= R[j]) {
+//                arr[k] = L[i];
+//                columns[k].setHeight(L[i]);
+//                i++;
+//            } else {
+//                arr[k] = R[j];
+//                columns[k].setHeight(R[j]);
+//                j++;
+//            }
+//            drawColorColumn(k, CustomColor.swappingColor);
+//
+//            swaps++;
+//            k++;
+//        }
+//
+//        while (i < n1) {
+//
+//            arr[k] = L[i];
+//            columns[k].clear(graphics);
+//            columns[k].setHeight(L[i]);
+//            drawColorColumn(k, CustomColor.swappingColor);
+//
+//            delay();
+//
+//            i++;
+//            k++;
+//        }
+//
+//        while (j < n2) {
+//
+//            arr[k] = R[j];
+//            columns[k].clear(graphics);
+//            columns[k].setHeight(R[j]);
+//            drawColorColumn(k, CustomColor.swappingColor);
+//
+//            delay();
+//
+//            j++;
+//            k++;
+//        }
     }
 
     public void quickSort() {
