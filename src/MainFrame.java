@@ -139,19 +139,12 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
 
 
     public void sortButtonClicked(int id) {
-        if (id == 0) {
-            mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
-        } else if (id == 1) {
-            mainVisualizer.bubbleSort();
-        } else if (id == 2) {
-            mainVisualizer.selectionSort();
-        } else if (id == 3) {
-            mainVisualizer.insertSort();
-        } else if (id == 4) {
-            mainVisualizer.mergeSort();
-        } else if (id == 5) {
-            mainVisualizer.quickSort();
-        }
+        if (id == 0) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
+        else if (id == 1) mainVisualizer.bubbleSort();
+        else if (id == 2) mainVisualizer.selectionSort();
+        else if (id == 3) mainVisualizer.insertSort();
+        else if (id == 4) mainVisualizer.mergeSort();
+        else if (id == 5) mainVisualizer.quickSort();
     }
 
     @Override
