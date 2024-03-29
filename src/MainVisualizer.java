@@ -288,7 +288,7 @@ public class MainVisualizer {
 
         int i = 0, j = 0, k = l;
         while (i < n1 && j < n2) {
-            drawColorComparingColumns(l + i, m + 1 + j, CustomColor.comparingColor);
+            drawColorColumn(k, CustomColor.comparingColor);
             comparisons++;
 
             columns[k].clear(graphics);
@@ -302,31 +302,27 @@ public class MainVisualizer {
                 columns[k].setHeight(R[j]);
                 j++;
             }
-            drawColorColumn(k, CustomColor.swappingColor);
+            delay();
+            drawColorColumn(k, CustomColor.sortedColor);
+
             k++;
         }
 
         while (i < n1) {
-
             arr[k] = L[i];
             columns[k].clear(graphics);
             columns[k].setHeight(L[i]);
-            drawColorColumn(k, CustomColor.swappingColor);
-
-            delay();
+            drawColorColumn(k, CustomColor.sortedColor);
 
             i++;
             k++;
         }
 
         while (j < n2) {
-
             arr[k] = R[j];
             columns[k].clear(graphics);
             columns[k].setHeight(R[j]);
-            drawColorColumn(k, CustomColor.swappingColor);
-
-            delay();
+            drawColorColumn(k, CustomColor.sortedColor);
 
             j++;
             k++;
