@@ -303,8 +303,6 @@ public class MainVisualizer {
                 j++;
             }
             drawColorColumn(k, CustomColor.swappingColor);
-
-            swaps++;
             k++;
         }
 
