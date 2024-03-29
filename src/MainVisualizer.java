@@ -193,7 +193,47 @@ public class MainVisualizer {
     }
 
     public void selectionSort() {
+        if (hasArray) {
+            graphics = bufferStrategy.getDrawGraphics();
 
+            startTime = System.currentTimeMillis();
+            Algorithm.selectionSort(arr.clone());
+
+            comparisons = 0;
+            swaps = 0;
+            int i;
+            for (i = 0; i < arr.length - 1; i++) {
+                int minIndex = i;
+                int min = arr[i];
+
+                for (int j = i + 1; j < arr.length; j++) {
+                    drawColorComparingColumns(minIndex, j, CustomColor.comparingColor);
+                    comparisons++;
+
+                    if (arr[j] < min) {
+                        minIndex = j;
+                        min = arr[j];
+                    }
+
+                }
+
+                if (minIndex != i) {
+                    swap(i, minIndex);
+                    swaps++;
+                }
+                drawColorColumn(i, CustomColor.sortedColor);
+            }
+            drawColorColumn(i, CustomColor.sortedColor);
+
+            long tempTime = System.currentTimeMillis();
+            totalTime = tempTime - startTime;
+
+            scanAllColumns();
+
+            graphics.dispose();
+
+            listener.updateInformation(totalTime, comparisons, swaps);
+        } else errorMessage("Let's create array!!!", "Array creation error!");
     }
 
     public void mergeSort() {
