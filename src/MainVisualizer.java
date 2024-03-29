@@ -273,67 +273,66 @@ public class MainVisualizer {
     }
 
     private void merge(int l, int m, int r) {
-//        int n1 = m - l + 1;
-//        int n2 = r - m;
-//
-//        Integer[] L = new Integer[n1];
-//        Integer[] R = new Integer[n2];
-//
-//        for (int i = 0; i < n1; i++) {
-//            L[i] = arr[l + i];
-//        }
-//        for (int i = 0; i < n2; i++) {
-//            R[i] = arr[m + 1 + i];
-//        }
-//
-//        int i = 0, j = 0, k = l;
-//
-//        while (i < n1 && j < n2) {
-//            drawColorComparingColumns(l + i, m + 1 + j, CustomColor.comparingColor);
-//            comparisons++;
-//
-//            columns[k].clear(graphics);
-//
-//            if (L[i] <= R[j]) {
-//                arr[k] = L[i];
-//                columns[k].setHeight(L[i]);
-//                i++;
-//            } else {
-//                arr[k] = R[j];
-//                columns[k].setHeight(R[j]);
-//                j++;
-//            }
-//            drawColorColumn(k, CustomColor.swappingColor);
-//
-//            swaps++;
-//            k++;
-//        }
-//
-//        while (i < n1) {
-//
-//            arr[k] = L[i];
-//            columns[k].clear(graphics);
-//            columns[k].setHeight(L[i]);
-//            drawColorColumn(k, CustomColor.swappingColor);
-//
-//            delay();
-//
-//            i++;
-//            k++;
-//        }
-//
-//        while (j < n2) {
-//
-//            arr[k] = R[j];
-//            columns[k].clear(graphics);
-//            columns[k].setHeight(R[j]);
-//            drawColorColumn(k, CustomColor.swappingColor);
-//
-//            delay();
-//
-//            j++;
-//            k++;
-//        }
+        int n1 = m - l + 1;
+        int n2 = r - m;
+
+        Integer[] L = new Integer[n1];
+        Integer[] R = new Integer[n2];
+
+        for (int i = 0; i < n1; i++) {
+            L[i] = arr[l + i];
+        }
+        for (int j = 0; j < n2; j++) {
+            R[j] = arr[m + 1 + j];
+        }
+
+        int i = 0, j = 0, k = l;
+        while (i < n1 && j < n2) {
+            drawColorComparingColumns(l + i, m + 1 + j, CustomColor.comparingColor);
+            comparisons++;
+
+            columns[k].clear(graphics);
+
+            if (L[i] <= R[j]) {
+                arr[k] = L[i];
+                columns[k].setHeight(L[i]);
+                i++;
+            } else {
+                arr[k] = R[j];
+                columns[k].setHeight(R[j]);
+                j++;
+            }
+            drawColorColumn(k, CustomColor.swappingColor);
+
+            swaps++;
+            k++;
+        }
+
+        while (i < n1) {
+
+            arr[k] = L[i];
+            columns[k].clear(graphics);
+            columns[k].setHeight(L[i]);
+            drawColorColumn(k, CustomColor.swappingColor);
+
+            delay();
+
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+
+            arr[k] = R[j];
+            columns[k].clear(graphics);
+            columns[k].setHeight(R[j]);
+            drawColorColumn(k, CustomColor.swappingColor);
+
+            delay();
+
+            j++;
+            k++;
+        }
     }
 
     public void quickSort() {
