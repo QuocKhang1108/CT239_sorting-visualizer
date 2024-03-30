@@ -9,7 +9,7 @@ import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
 
 
-public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, CustomCanvas.CanvasListener, MainVisualizer.SortedColumnListener, PropertyChangeListener, ChangeListener {
+public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, CustomCanvas.CanvasListener, MainVisualizer.VisualizerListener, PropertyChangeListener, ChangeListener {
     private static final int widthFrame = 1280, heightFrame = 800;
     private JPanel mainPanel, sliderPanel, dataLabel;
     private BtnPanel buttonPanel;

@@ -17,13 +17,13 @@ public class MainVisualizer {
     private int capacity, speed;    //capacity = number of columns
     private long startTime, totalTime;
     private int comparisons, swaps;
-    private SortedColumnListener listener;
+    private VisualizerListener listener;
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
     private boolean hasArray, isBubbleSorted, isInsertSorted, isSelectionSorted,
             isMergeSorted, isQuickSorted, isSwapped;
 
-    public MainVisualizer(int capacity, int fps, SortedColumnListener listener) {
+    public MainVisualizer(int capacity, int fps, VisualizerListener listener) {
         this.capacity = capacity;
         this.speed = 1000 / fps;
         this.listener = listener;
@@ -392,7 +392,7 @@ public class MainVisualizer {
         this.speed = 1000 / fps;
     }
 
-    public interface SortedColumnListener {
+    public interface VisualizerListener {
         void updateInformation(long totalTime, int comparisons, int swaps);
 
         BufferStrategy getBufferStrategy();
