@@ -251,7 +251,7 @@ public class MainVisualizer {
             long tempTime = System.currentTimeMillis();
             totalTime = tempTime - startTime;
 
-            scanAllColumns();
+//            scanAllColumns();
 
             graphics.dispose();
 
@@ -356,8 +356,20 @@ public class MainVisualizer {
         if (start < end) {
             int pivot = partition(start, end);
 
+            drawColorColumn(pivot, CustomColor.pivotColor);
+
             quickSort(start, pivot - 1);
+            for (int i = start; i <= pivot-1; i++) {
+                drawColorColumn(i, CustomColor.scanColor);
+                drawColorColumn(i, CustomColor.sortedColor);
+            }
+
             quickSort(pivot + 1, end);
+            for (int i = pivot + 1; i <= end; i++) {
+                drawColorColumn(i, CustomColor.scanColor);
+                drawColorColumn(i, CustomColor.sortedColor);
+            }
+
         }
     }
 
