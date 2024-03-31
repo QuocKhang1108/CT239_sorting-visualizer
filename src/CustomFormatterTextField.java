@@ -3,7 +3,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 public class CustomFormatterTextField extends NumberFormatter {
-    public CustomFormatter(NumberFormat format) {
+    public CustomFormatterTextField(NumberFormat format) {
         super(format);
     }
 
