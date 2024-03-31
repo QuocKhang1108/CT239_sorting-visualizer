@@ -49,7 +49,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         mainPanel.add(capacityLabel);
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
-        CustomFormatter customFormatter = new CustomFormatter(numberFormat);
+        CustomFormatterTextField customFormatter = new CustomFormatterTextField(numberFormat);
         customFormatter.setValueClass(Integer.class);
         customFormatter.setMinimum(0);
         customFormatter.setMaximum(500);
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         mainPanel.add(sliderPanel);
 
         inputArea = new JTextArea();
-        inputArea.setBounds(10, 150, 230, 140);
+        inputArea.setBounds(10, 150, 230, 190);
         inputArea.setFont(new Font(null, Font.ITALIC, 15));
         inputArea.setForeground(CustomColor.textInput);
         inputArea.setLineWrap(true);
@@ -110,7 +110,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         mainPanel.add(inputArea);
 
         buttonPanel = new BtnPanel(this);
-        buttonPanel.setBounds(0, 300, 250, 500);
+        buttonPanel.setBounds(0, 350, 250, 500);
         buttonPanel.setBackground(CustomColor.mainBackground);
         mainPanel.add(buttonPanel);
 
