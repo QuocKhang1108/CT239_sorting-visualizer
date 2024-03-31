@@ -20,6 +20,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
     private JLabel capacityLabel, fpsLabel, timeLabel, comparingLabel, swappingLabel;
     private JFormattedTextField capacityField;
     private JSlider fpsSlider;
+    private JTextArea inputArea;
 
     public MainFrame() {
         super();
@@ -96,11 +97,20 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         sliderPanel.setBackground(CustomColor.mainBackground);
         sliderPanel.add(fpsLabel);
         sliderPanel.add(fpsSlider);
-        sliderPanel.setBounds(10, 50, 220, 100);
+        sliderPanel.setBounds(10, 50, 230, 100);
         mainPanel.add(sliderPanel);
 
+        inputArea = new JTextArea();
+        inputArea.setBounds(10, 150, 230, 140);
+        inputArea.setFont(new Font(null, Font.ITALIC, 15));
+        inputArea.setForeground(CustomColor.textInput);
+        inputArea.setLineWrap(true);
+        inputArea.setBackground(CustomColor.boxInput);
+        inputArea.setBorder(null);
+        mainPanel.add(inputArea);
+
         buttonPanel = new BtnPanel(this);
-        buttonPanel.setBounds(0, 300, 250, 450);
+        buttonPanel.setBounds(0, 300, 250, 500);
         buttonPanel.setBackground(CustomColor.mainBackground);
         mainPanel.add(buttonPanel);
 
@@ -139,12 +149,13 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
 
 
     public void sortButtonClicked(int id) {
-        if (id == 0) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
-        else if (id == 1) mainVisualizer.bubbleSort();
-        else if (id == 2) mainVisualizer.selectionSort();
-        else if (id == 3) mainVisualizer.insertSort();
-        else if (id == 4) mainVisualizer.mergeSort();
-        else if (id == 5) mainVisualizer.quickSort();
+        if (id == 0) mainVisualizer.createArray(inputArea.getText());
+        else if (id == 1) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
+        else if (id == 2) mainVisualizer.bubbleSort();
+        else if (id == 3) mainVisualizer.selectionSort();
+        else if (id == 4) mainVisualizer.insertSort();
+        else if (id == 5) mainVisualizer.mergeSort();
+        else if (id == 6) mainVisualizer.quickSort();
     }
 
     @Override

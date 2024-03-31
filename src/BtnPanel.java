@@ -4,10 +4,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class BtnPanel extends JPanel {
-    private static final int widthBtn = 200, heightBtn = 50;
+    private static final int widthBtn = 200, heightBtn = 40;
     private SortButtonListener listener;
     private JButton[] buttons;
-    private int number = 6;
+    private int number = 7;
 
     public BtnPanel(SortButtonListener listener) {
 //        super();
@@ -25,7 +25,7 @@ public class BtnPanel extends JPanel {
             buttons[i].setFont(new Font(null, Font.PLAIN, 20));
             buttons[i].setForeground(CustomColor.text);
 
-            if (i == 0) buttons[i].setBounds(25, 0, widthBtn, heightBtn);
+            if (i == 0 || i==1) buttons[i].setBounds(25, (heightBtn+20) * i, widthBtn, heightBtn);
             else buttons[i].setBounds(25, 25 + (heightBtn + 20) * i, widthBtn, heightBtn);
 
             int button = i;
@@ -52,8 +52,8 @@ public class BtnPanel extends JPanel {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    if (button == 0) buttons[button].setBounds(25, 0-5, widthBtn, heightBtn);
-                    else buttons[button].setBounds(25, 25-5 + (heightBtn + 20) * button, widthBtn, heightBtn);
+                    if (button == 0 || button==1) buttons[button].setBounds(25, -5+(heightBtn+20) * button, widthBtn, heightBtn);
+                    else buttons[button].setBounds(25, -5+25 + (heightBtn + 20) * button, widthBtn, heightBtn);
 
                     buttons[button].setBackground(CustomColor.btnEntered);
                     buttons[button].setFont(new Font(null, Font.PLAIN, 20));
@@ -62,7 +62,7 @@ public class BtnPanel extends JPanel {
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    if (button == 0) buttons[button].setBounds(25, 0, widthBtn, heightBtn);
+                    if (button == 0 || button==1) buttons[button].setBounds(25, (heightBtn+20) * button, widthBtn, heightBtn);
                     else buttons[button].setBounds(25, 25 + (heightBtn + 20) * button, widthBtn, heightBtn);
 
                     buttons[button].setBackground(CustomColor.mainBackground);
@@ -75,12 +75,13 @@ public class BtnPanel extends JPanel {
 
         setLayout(null);
 
-        buttons[0].setText("Create array random");
-        buttons[1].setText("Bubble Sort");
-        buttons[2].setText("Selection Sort");
-        buttons[3].setText("Insertion Sort");
-        buttons[4].setText("Merge Sort");
-        buttons[5].setText("Quick Sort");
+        buttons[0].setText("Create array");
+        buttons[1].setText("Create array random");
+        buttons[2].setText("Bubble Sort");
+        buttons[3].setText("Selection Sort");
+        buttons[4].setText("Insertion Sort");
+        buttons[5].setText("Merge Sort");
+        buttons[6].setText("Quick Sort");
     }
 
     public interface SortButtonListener {

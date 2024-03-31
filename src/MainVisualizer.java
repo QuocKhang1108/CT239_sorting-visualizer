@@ -36,6 +36,9 @@ public class MainVisualizer {
     }
 
     /////////////////////////////////////////DRAW////////////////////////////////////////////
+    public void createArray(String text) {
+    }
+
     public void createRandomArray(int widthCanvas, int heightCanvas) {
         startTime = totalTime = comparisons = swaps = 0;
         listener.updateInformation(totalTime, comparisons, swaps);
