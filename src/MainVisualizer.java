@@ -4,6 +4,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Objects;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
 public class MainVisualizer {
     private static final int paddingMainVisualizer = 10;
@@ -32,8 +33,50 @@ public class MainVisualizer {
     private void errorMessage(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
+
     /////////////////////////////////////////DRAW////////////////////////////////////////////
-    public void createArray(String text) {
+    public void createArray(String stringArr, int widthCanvas, int heightCanvas) {
+        stringArr = stringArr.trim();
+        if (stringArr.endsWith(",")) {
+            stringArr = stringArr.substring(0, stringArr.length() - 1);
+        }
+
+        startTime = totalTime = comparisons = swaps = 0;
+        listener.updateInformation(totalTime, comparisons, swaps);
+        arr = new Integer[capacity];
+        columns = new Column[capacity];
+
+        String[] strArr = stringArr.split(",");
+        Pattern regEx = Pattern.compile("^(100|[1-9]?[0-9])(\\s*,\\s*(100|[1-9]?[0-9]))*$");
+
+        if (stringArr.isEmpty()) {
+            errorMessage("Array creation error!", "Array is empty!");
+        } else if (!regEx.matcher(stringArr).matches()) {
+            errorMessage("Array creation error!", "Invalid array format. Ex: 1,2,3,...");
+        } else if (strArr.length != capacity) {
+            errorMessage("Array creation error!", "Array length must be " + capacity);
+        } else {
+            double x = paddingMainVisualizer, y = heightCanvas - paddingMainVisualizer;
+            double width = (double) (widthCanvas - paddingMainVisualizer * 2) / capacity;
+
+            graphics = bufferStrategy.getDrawGraphics();
+            graphics.setColor(CustomColor.canvasBackground);
+            graphics.fillRect(0, 0, widthCanvas, heightCanvas);
+
+            for (int i = 0; i < arr.length; i++) {
+                arr[i] = Integer.parseInt(strArr[i].trim());
+                Column column = new Column((int) x, (int) y, (int) width, arr[i], CustomColor.originalColor);
+                column.draw(graphics);
+                columns[i] = column;
+                x += width;
+            }
+            hasArray = true;
+
+            listener.updateArray(arr);
+            bufferStrategy.show();
+            graphics.dispose();
+
+        }
     }
 
     public void createRandomArray(int widthCanvas, int heightCanvas) {
@@ -100,6 +143,7 @@ public class MainVisualizer {
             drawColorColumn(i, CustomColor.sortedColor);
         }
     }
+
     /////////////////////////////////////////*DRAW*////////////////////////////////////////////
     ////////////////////////////////ALGORITHMS VISUALIZER////////////////////////////////////
     private void swap(int i, int j) {
@@ -356,7 +400,7 @@ public class MainVisualizer {
             drawColorColumn(pivot, CustomColor.pivotColor);
 
             quickSort(start, pivot - 1);
-            for (int i = start; i <= pivot-1; i++) {
+            for (int i = start; i <= pivot - 1; i++) {
                 drawColorColumn(i, CustomColor.scanColor);
                 drawColorColumn(i, CustomColor.sortedColor);
             }
@@ -403,7 +447,9 @@ public class MainVisualizer {
 
     public interface VisualizerListener {
         void updateInformation(long totalTime, int comparisons, int swaps);
+
         void updateArray(Integer[] arr);
+
         BufferStrategy getBufferStrategy();
     }
 }
