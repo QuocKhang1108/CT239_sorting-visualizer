@@ -52,8 +52,8 @@ public class BtnPanel extends JPanel {
 
                 @Override
                 public void mouseEntered(MouseEvent e) {
-                    if (button == 0 || button==1) buttons[button].setBounds(25, -5+(heightBtn+20) * button, widthBtn, heightBtn);
-                    else buttons[button].setBounds(25, -5+25 + (heightBtn + 20) * button, widthBtn, heightBtn);
+//                    if (button == 0 || button==1) buttons[button].setBounds(25, -5+(heightBtn+20) * button, widthBtn, heightBtn);
+//                    else buttons[button].setBounds(25, -5+25 + (heightBtn + 20) * button, widthBtn, heightBtn);
 
                     buttons[button].setBackground(CustomColor.btnEntered);
                     buttons[button].setFont(new Font(null, Font.PLAIN, 20));
