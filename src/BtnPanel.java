@@ -22,11 +22,11 @@ public class BtnPanel extends JPanel {
             buttons[i].setBackground(CustomColor.mainBackground);
             buttons[i].setBorder(null);
             buttons[i].setFocusPainted(false);
-            buttons[i].setFont(new Font(null, Font.PLAIN, 20));
+            buttons[i].setFont(new Font(null, Font.BOLD, 20));
             buttons[i].setForeground(CustomColor.text);
 
-            if (i == 0 || i==1) buttons[i].setBounds(25, (heightBtn+20) * i, widthBtn, heightBtn);
-            else buttons[i].setBounds(25, 25 + (heightBtn + 20) * i, widthBtn, heightBtn);
+            if (i == 0 || i == 1) buttons[i].setBounds(25, (heightBtn + 10) * i, widthBtn, heightBtn);
+            else buttons[i].setBounds(25,(heightBtn + 20) * i, widthBtn, heightBtn);
 
             int button = i;
             buttons[i].addMouseListener(new MouseListener() {
@@ -37,7 +37,6 @@ public class BtnPanel extends JPanel {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     buttons[button].setBackground(CustomColor.btnPressed);
-                    buttons[button].setFont(new Font(null, Font.BOLD, 20));
                     buttons[button].setForeground(CustomColor.text);
                 }
 
@@ -46,7 +45,6 @@ public class BtnPanel extends JPanel {
                     listener.sortButtonClicked(button);
 
                     buttons[button].setBackground(CustomColor.btnPressed);
-                    buttons[button].setFont(new Font(null, Font.BOLD, 20));
                     buttons[button].setForeground(CustomColor.textSelected);
                 }
 
@@ -56,17 +54,15 @@ public class BtnPanel extends JPanel {
 //                    else buttons[button].setBounds(25, -5+25 + (heightBtn + 20) * button, widthBtn, heightBtn);
 
                     buttons[button].setBackground(CustomColor.btnEntered);
-                    buttons[button].setFont(new Font(null, Font.PLAIN, 20));
                     buttons[button].setForeground(CustomColor.textSelected);
                 }
 
                 @Override
                 public void mouseExited(MouseEvent e) {
-                    if (button == 0 || button==1) buttons[button].setBounds(25, (heightBtn+20) * button, widthBtn, heightBtn);
-                    else buttons[button].setBounds(25, 25 + (heightBtn + 20) * button, widthBtn, heightBtn);
+                    if (button == 0 || button == 1) buttons[button].setBounds(25, (heightBtn + 5) * button, widthBtn, heightBtn);
+                    else buttons[button].setBounds(25,  (heightBtn + 20) * button, widthBtn, heightBtn);
 
                     buttons[button].setBackground(CustomColor.mainBackground);
-                    buttons[button].setFont(new Font(null, Font.PLAIN, 20));
                     buttons[button].setForeground(CustomColor.text);
                 }
             });

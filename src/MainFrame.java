@@ -46,7 +46,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         capacityLabel = new JLabel("Capacity (3-50):");
         capacityLabel.setForeground(CustomColor.text);
         capacityLabel.setFont(new Font(null, Font.BOLD, 15));
-        capacityLabel.setBounds(10, 20, 125, 20);
+        capacityLabel.setBounds(35, 20, 125, 20);
         mainPanel.add(capacityLabel);
 
         NumberFormat numberFormat = NumberFormat.getNumberInstance();
@@ -68,7 +68,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         capacityField.setBorder(null);
 //        capacityField.setBorder(BorderFactory.createLineBorder(CustomColor.mainBackground));
         capacityField.addPropertyChangeListener("value", this);
-        capacityField.setBounds(135, 20, 50, 20);
+        capacityField.setBounds(160, 20, 50, 20);
         capacityLabel.setLabelFor(capacityField);
         mainPanel.add(capacityField);
 
