@@ -53,13 +53,10 @@ public class MainVisualizer {
         graphics.fillRect(0, 0, widthCanvas, heightCanvas);
 
         Random random = new Random();
-        int valueRandom, height;
         Column column;
         for (int i = 0; i < arr.length; i++) {
-            valueRandom = random.nextInt(maxRandom) + minRandom;
-            arr[i] = valueRandom;
-            height = Parse.parseHeight(valueRandom);
-            column = new Column((int) x, (int) y, (int) width, height, CustomColor.originalColor);
+            arr[i] = random.nextInt(maxRandom) + minRandom;
+            column = new Column((int) x, (int) y, (int) width, arr[i], CustomColor.originalColor);
             column.draw(graphics);
             columns[i] = column;
             x += width;

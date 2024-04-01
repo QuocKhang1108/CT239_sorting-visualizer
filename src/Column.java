@@ -15,18 +15,18 @@ public class Column {
 
     public void draw(Graphics graphics) {
         graphics.setColor(color);
-        graphics.fillRect(x + marginColumn, y - height, width - marginColumn * 2, height);
+        graphics.fillRect(x + marginColumn, y - (Parse.parseHeight(height)), width - marginColumn * 2, Parse.parseHeight(height));
 
-        graphics.drawString(String.valueOf(height), x + width / 2 - 5, y - height - 5);
+        graphics.drawString(String.valueOf(height), x + width / 2 - 5, y - Parse.parseHeight(height) - 5);
     }
 
     //    clear column when its swap
     public void clear(Graphics graphics) {
         graphics.setColor(CustomColor.canvasBackground);
-        graphics.fillRect(x + marginColumn, y - height, width - marginColumn * 2, height);
+        graphics.fillRect(x + marginColumn, y - (Parse.parseHeight(height)), width - marginColumn * 2, Parse.parseHeight(height));
 
         graphics.setColor(CustomColor.canvasBackground);
-        graphics.drawString(String.valueOf(height), x + width / 2 - 5, y - height - 5);
+        graphics.drawString(String.valueOf(height), x + width / 2 - 5, y - Parse.parseHeight(height) - 5);
     }
 
     public int getHeight() {
