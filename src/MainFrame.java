@@ -17,10 +17,11 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
     private static final int widthCanvas = widthFrame - 250 - 14, heightCanvas = heightFrame - 150;
     private MainVisualizer mainVisualizer;
     private static final int CAPACITY = 20, FPS = 200;
-    private JLabel capacityLabel, fpsLabel, timeLabel, comparingLabel, swappingLabel;
+    private JLabel capacityLabel, fpsLabel, arrayLabel, timeLabel, comparingLabel, swappingLabel;
     private JFormattedTextField capacityField;
     private JSlider fpsSlider;
     private JTextArea inputArea;
+    private JScrollPane scrollPane;
 
     public MainFrame() {
         super();
@@ -60,6 +61,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
 //        capacityField.setColumns(3);
         capacityField.setFont(new Font(null, Font.ITALIC, 15));
         capacityField.setToolTipText("Enter the capacity of the array");
+        capacityField.setCaretColor(CustomColor.text);
         capacityField.setForeground(CustomColor.textInput);
         capacityField.setBackground(CustomColor.boxInput);
 //        capacityField.setCaretColor(CustomColor.red);
@@ -70,14 +72,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         capacityLabel.setLabelFor(capacityField);
         mainPanel.add(capacityField);
 
-//        inputPanel = new JPanel(new GridLayout(2, 0));
-//        inputPanel.add(capacityLabel);
-//        inputPanel.add(capacityField);
-//        inputPanel.setBackground(CustomColor.mainBackground);
-//        inputPanel.setBounds(50, 20, 200, 50);
-//        mainPanel.add(inputPanel);
-
-        fpsLabel = new JLabel("Speed");
+        fpsLabel = new JLabel("Speed:");
         fpsLabel.setAlignmentX(JLabel.CENTER_ALIGNMENT);
         fpsLabel.setFont(new Font(null, Font.BOLD, 15));
         fpsLabel.setForeground(CustomColor.text);
@@ -98,18 +93,30 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         sliderPanel.setBackground(CustomColor.mainBackground);
         sliderPanel.add(fpsLabel);
         sliderPanel.add(fpsSlider);
-        sliderPanel.setBounds(10, 50, 230, 100);
+        sliderPanel.setBounds(10, 50, 230, 50);
         mainPanel.add(sliderPanel);
 
+        arrayLabel= new JLabel("Array:");
+        arrayLabel.setFont(new Font(null, Font.BOLD, 15));
+        arrayLabel.setForeground(CustomColor.text);
+        arrayLabel.setBounds(10, 105, 50, 20);
+        mainPanel.add(arrayLabel);
+
         inputArea = new JTextArea();
-        inputArea.setBounds(10, 150, 230, 190);
         inputArea.setFont(new Font(null, Font.ITALIC, 15));
         inputArea.setToolTipText("Enter the array to sort");
         inputArea.setForeground(CustomColor.textInput);
         inputArea.setLineWrap(true);
         inputArea.setBackground(CustomColor.boxInput);
         inputArea.setBorder(null);
-        mainPanel.add(inputArea);
+        inputArea.setWrapStyleWord(true);
+        inputArea.setCaretColor(CustomColor.text);
+
+        scrollPane = new JScrollPane(inputArea);
+        scrollPane.setBounds(10, 130, 230, 210);
+        scrollPane.setBorder(null);
+        scrollPane.setBackground(CustomColor.mainBackground);
+        mainPanel.add(scrollPane);
 
         buttonPanel = new BtnPanel(this);
         buttonPanel.setBounds(0, 350, 250, 500);
