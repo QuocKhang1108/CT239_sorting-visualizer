@@ -11,10 +11,9 @@ public class MainVisualizer {
 
     //each unit height is equivalent to 6,
     // the greatest height is 100<=>606, the smallest height is 0<=>6
-    private static final int maxColumnHeight = 606, minColumnHeight = 6;
-
+    private static final int maxRandom = 100, minRandom = 0;
     private Integer[] arr;
-    private int capacity, speed;    //capacity = number of columns
+    private int capacity, speed;
     private long startTime, totalTime;
     private int comparisons, swaps;
     private VisualizerListener listener;
@@ -33,7 +32,6 @@ public class MainVisualizer {
     private void errorMessage(String title, String message) {
         JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
     }
-
     /////////////////////////////////////////DRAW////////////////////////////////////////////
     public void createArray(String text) {
     }
@@ -55,12 +53,13 @@ public class MainVisualizer {
         graphics.fillRect(0, 0, widthCanvas, heightCanvas);
 
         Random random = new Random();
-        int value;
+        int valueRandom, height;
         Column column;
         for (int i = 0; i < arr.length; i++) {
-            value = random.nextInt(maxColumnHeight) + minColumnHeight;
-            arr[i] = value;
-            column = new Column((int) x, (int) y, (int) width, value, CustomColor.originalColor);
+            valueRandom = random.nextInt(maxRandom) + minRandom;
+            arr[i] = valueRandom;
+            height = Parse.parseHeight(valueRandom);
+            column = new Column((int) x, (int) y, (int) width, height, CustomColor.originalColor);
             column.draw(graphics);
             columns[i] = column;
             x += width;
@@ -104,7 +103,6 @@ public class MainVisualizer {
             drawColorColumn(i, CustomColor.sortedColor);
         }
     }
-
     /////////////////////////////////////////*DRAW*////////////////////////////////////////////
     ////////////////////////////////ALGORITHMS VISUALIZER////////////////////////////////////
     private void swap(int i, int j) {
