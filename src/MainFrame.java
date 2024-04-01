@@ -1,12 +1,17 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.text.AbstractDocument;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.text.NumberFormat;
+import java.util.regex.Pattern;
 
 
 public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, CustomCanvas.CanvasListener, MainVisualizer.VisualizerListener, PropertyChangeListener, ChangeListener {
@@ -103,6 +108,27 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         mainPanel.add(arrayLabel);
 
         inputArea = new CustomTextArea();
+        ((AbstractDocument) inputArea.getDocument()).setDocumentFilter(new DocumentFilter() {
+            Pattern regEx = Pattern.compile("^\\s*(\\d{1,2}|100)(,\\s*(\\d{1,2}|100))*\\s*$");
+
+            @Override
+            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+                String string = fb.getDocument().getText(0, fb.getDocument().getLength());
+                string = string.substring(0, offset) + text + string.substring(length + offset);
+                if (text.isEmpty() || regEx.matcher(string).matches()) {
+                    super.replace(fb, offset, length, text, attrs);
+                }
+            }
+
+            @Override
+            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
+                String text = fb.getDocument().getText(0, fb.getDocument().getLength());
+                text = text.substring(0, offset) + string + text.substring(offset);
+                if (regEx.matcher(text).matches()) {
+                    super.insertString(fb, offset, string, attr);
+                }
+            }
+        });
         inputArea.setToolTipText("Enter the array to sort");
 
         scrollPane = new JScrollPane(inputArea);
