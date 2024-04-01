@@ -14,5 +14,6 @@ public class CustomColor {
     public static Color text = new Color(0, 61, 176);
     public static Color textSelected = new Color(229, 235, 241);
     public static Color textInput = new Color(229, 235, 241);
+    public static Color textHint = new Color(229, 235, 241, 147);
     public static Color boxInput = new Color(13, 17, 23);
 }

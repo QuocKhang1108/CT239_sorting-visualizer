@@ -102,15 +102,8 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         arrayLabel.setBounds(10, 105, 50, 20);
         mainPanel.add(arrayLabel);
 
-        inputArea = new JTextArea();
-        inputArea.setFont(new Font(null, Font.ITALIC, 15));
+        inputArea = new CustomTextArea();
         inputArea.setToolTipText("Enter the array to sort");
-        inputArea.setForeground(CustomColor.textInput);
-        inputArea.setLineWrap(true);
-        inputArea.setBackground(CustomColor.boxInput);
-        inputArea.setBorder(null);
-        inputArea.setWrapStyleWord(true);
-        inputArea.setCaretColor(CustomColor.text);
 
         scrollPane = new JScrollPane(inputArea);
         scrollPane.setBounds(10, 130, 230, 210);
