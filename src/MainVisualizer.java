@@ -20,8 +20,7 @@ public class MainVisualizer {
     private VisualizerListener listener;
     private BufferStrategy bufferStrategy;
     private Graphics graphics;
-    private boolean hasArray, isBubbleSorted, isInsertSorted, isSelectionSorted,
-            isMergeSorted, isQuickSorted, isSwapped;
+    private boolean hasArray;
 
     public MainVisualizer(int capacity, int fps, VisualizerListener listener) {
         this.capacity = capacity;
@@ -42,7 +41,6 @@ public class MainVisualizer {
     public void createRandomArray(int widthCanvas, int heightCanvas) {
         startTime = totalTime = comparisons = swaps = 0;
         listener.updateInformation(totalTime, comparisons, swaps);
-        isSwapped = isBubbleSorted = isInsertSorted = isSelectionSorted = isMergeSorted = isQuickSorted = false;
         arr = new Integer[capacity];
         columns = new Column[capacity];
         hasArray = true;
