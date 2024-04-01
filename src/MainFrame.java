@@ -48,7 +48,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         mainPanel.setBackground(CustomColor.mainBackground);
         add(mainPanel);
 
-        capacityLabel = new JLabel("Capacity (3-50):");
+        capacityLabel = new JLabel("Capacity:");
         capacityLabel.setForeground(CustomColor.text);
         capacityLabel.setFont(new Font(null, Font.BOLD, 15));
         capacityLabel.setBounds(35, 20, 125, 20);
@@ -101,35 +101,14 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         sliderPanel.setBounds(10, 50, 230, 50);
         mainPanel.add(sliderPanel);
 
-        arrayLabel= new JLabel("Array:");
+        arrayLabel= new JLabel("Array (0-100):");
         arrayLabel.setFont(new Font(null, Font.BOLD, 15));
         arrayLabel.setForeground(CustomColor.text);
-        arrayLabel.setBounds(10, 105, 50, 20);
+        arrayLabel.setBounds(10, 105, 100, 20);
         mainPanel.add(arrayLabel);
 
         inputArea = new CustomTextArea();
-        ((AbstractDocument) inputArea.getDocument()).setDocumentFilter(new DocumentFilter() {
-            Pattern regEx = Pattern.compile("^\\s*(\\d{1,2}|100)(,\\s*(\\d{1,2}|100))*\\s*$");
-
-            @Override
-            public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-                String string = fb.getDocument().getText(0, fb.getDocument().getLength());
-                string = string.substring(0, offset) + text + string.substring(length + offset);
-                if (text.isEmpty() || regEx.matcher(string).matches()) {
-                    super.replace(fb, offset, length, text, attrs);
-                }
-            }
-
-            @Override
-            public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-                String text = fb.getDocument().getText(0, fb.getDocument().getLength());
-                text = text.substring(0, offset) + string + text.substring(offset);
-                if (regEx.matcher(text).matches()) {
-                    super.insertString(fb, offset, string, attr);
-                }
-            }
-        });
-        inputArea.setToolTipText("Enter the array to sort");
+        inputArea.setToolTipText("Enter the array to sort. Ex: 1,0,2,4,3,5..");
 
         scrollPane = new JScrollPane(inputArea);
         scrollPane.setBounds(10, 130, 230, 210);
@@ -177,7 +156,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
 
 
     public void sortButtonClicked(int id) {
-        if (id == 0) mainVisualizer.createArray(inputArea.getText());
+        if (id == 0) mainVisualizer.createArray(inputArea.getText(),canvas.getWidth(), canvas.getHeight());
         else if (id == 1) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
         else if (id == 2) mainVisualizer.bubbleSort();
         else if (id == 3) mainVisualizer.selectionSort();
