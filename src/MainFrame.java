@@ -173,6 +173,16 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         swappingLabel.setText("Swaps: " + swaps);
     }
 
+    @Override
+    public void updateArray(Integer[] arr) {
+        String str = "";
+        for (int i = 0; i < arr.length; i++) {
+            str += arr[i];
+            if (i < arr.length - 1) str += ", ";
+        }
+        inputArea.setText(str);
+    }
+
     public BufferStrategy getBufferStrategy() {
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
         if (bufferStrategy == null) {

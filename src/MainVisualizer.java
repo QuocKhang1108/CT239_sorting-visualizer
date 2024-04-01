@@ -67,6 +67,7 @@ public class MainVisualizer {
             columns[i] = column;
             x += width;
         }
+        listener.updateArray(arr);
         bufferStrategy.show();
         graphics.dispose();
     }
@@ -409,7 +410,7 @@ public class MainVisualizer {
 
     public interface VisualizerListener {
         void updateInformation(long totalTime, int comparisons, int swaps);
-
+        void updateArray(Integer[] arr);
         BufferStrategy getBufferStrategy();
     }
 }
