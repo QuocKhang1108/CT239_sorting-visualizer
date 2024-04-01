@@ -59,6 +59,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         capacityField.setValue(CAPACITY);
 //        capacityField.setColumns(3);
         capacityField.setFont(new Font(null, Font.ITALIC, 15));
+        capacityField.setToolTipText("Enter the capacity of the array");
         capacityField.setForeground(CustomColor.textInput);
         capacityField.setBackground(CustomColor.boxInput);
 //        capacityField.setCaretColor(CustomColor.red);
@@ -103,6 +104,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         inputArea = new JTextArea();
         inputArea.setBounds(10, 150, 230, 190);
         inputArea.setFont(new Font(null, Font.ITALIC, 15));
+        inputArea.setToolTipText("Enter the array to sort");
         inputArea.setForeground(CustomColor.textInput);
         inputArea.setLineWrap(true);
         inputArea.setBackground(CustomColor.boxInput);
