@@ -51,10 +51,13 @@ public class MainVisualizer {
 
         if (stringArr.isEmpty()) {
             errorMessage("Array creation error!", "Array is empty!");
+            hasArray = false;
         } else if (!regEx.matcher(stringArr).matches()) {
             errorMessage("Array creation error!", "Invalid array format. Ex: 1,2,3,...");
+            hasArray = false;
         } else if (strArr.length != capacity) {
             errorMessage("Array creation error!", "Array length must be " + capacity);
+            hasArray = false;
         } else {
             double x = paddingMainVisualizer, y = heightCanvas - paddingMainVisualizer;
             double width = (double) (widthCanvas - paddingMainVisualizer * 2) / capacity;
@@ -190,7 +193,7 @@ public class MainVisualizer {
             graphics.dispose();
 
             listener.updateInformation(totalTime, comparisons, swaps);
-        } else errorMessage("Let's create array!!!", "Array creation error!");
+        } else errorMessage("Array creation error!", "Let's create array!!!");
     }
 
     public void insertSort() {
@@ -230,7 +233,7 @@ public class MainVisualizer {
             graphics.dispose();
 
             listener.updateInformation(totalTime, comparisons, swaps);
-        } else errorMessage("Let's create array!!!", "Array creation error!");
+        } else errorMessage("Array creation error!", "Let's create array!!!");
     }
 
     public void selectionSort() {
@@ -274,7 +277,7 @@ public class MainVisualizer {
             graphics.dispose();
 
             listener.updateInformation(totalTime, comparisons, swaps);
-        } else errorMessage("Let's create array!!!", "Array creation error!");
+        } else errorMessage("Array creation error!", "Let's create array!!!");
     }
 
     public void mergeSort() {
