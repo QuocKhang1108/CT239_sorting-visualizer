@@ -1,20 +1,21 @@
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
+import javax.swing.filechooser.FileFilter;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.*;
 import java.text.NumberFormat;
-import java.util.regex.Pattern;
 
 
 public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, CustomCanvas.CanvasListener, MainVisualizer.VisualizerListener, PropertyChangeListener, ChangeListener {
+    private JMenuBar menuBar;
+    private JMenu fileMenu;
+    private JMenuItem openMenuItem, saveMenuItem, exitMenuItem;
+    private JFileChooser fileChooser;
     private static final int widthFrame = 1280, heightFrame = 800;
     private JPanel mainPanel, sliderPanel, dataLabel;
     private BtnPanel buttonPanel;
@@ -40,6 +41,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         setTitle("Sorting Visualizer");
 
         initialize();
+        addMenuBar();
     }
 
     private void initialize() {
@@ -101,7 +103,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         sliderPanel.setBounds(10, 50, 230, 50);
         mainPanel.add(sliderPanel);
 
-        arrayLabel= new JLabel("Array (0-100):");
+        arrayLabel = new JLabel("Array (0-100):");
         arrayLabel.setFont(new Font(null, Font.BOLD, 15));
         arrayLabel.setForeground(CustomColor.text);
         arrayLabel.setBounds(10, 105, 100, 20);
@@ -154,9 +156,80 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         mainPanel.add(dataLabel);
     }
 
+    private void addMenuBar() {
+        menuBar = new JMenuBar();
+
+        fileMenu = new JMenu("File");
+
+        openMenuItem = new JMenuItem("Open file");
+        saveMenuItem = new JMenuItem("Save file");
+        exitMenuItem = new JMenuItem("Exit");
+
+        openMenuItem.addActionListener(e -> {
+            try {
+                // Set the look and feel to 'Windows'
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Windows".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            fileChooser = getFileChooser();
+        });
+
+
+        fileMenu.add(openMenuItem);
+        fileMenu.add(saveMenuItem);
+        fileMenu.add(exitMenuItem);
+
+        menuBar.add(fileMenu);
+        setJMenuBar(menuBar);
+    }
+
+    private JFileChooser getFileChooser() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Open a file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setCurrentDirectory(new File("./file"));
+        fileChooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                return f.getName().endsWith(".txt");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Text file (*.txt)";
+            }
+        });
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            String firstLine = "";
+            try (BufferedReader br = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))) {
+                firstLine = br.readLine(); // get the first line
+                firstLine = firstLine.trim();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+
+            String[] numbers = firstLine.split(",");    // sub string the first line to get the numbers
+            capacityField.setValue(numbers.length);
+
+            mainVisualizer.createArray(firstLine, canvas.getWidth(), canvas.getHeight()); // create the array from the file
+        }
+        return fileChooser;
+    }
 
     public void sortButtonClicked(int id) {
-        if (id == 0) mainVisualizer.createArray(inputArea.getText(),canvas.getWidth(), canvas.getHeight());
+        if (id == 0) mainVisualizer.createArray(inputArea.getText(), canvas.getWidth(), canvas.getHeight());
         else if (id == 1) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
         else if (id == 2) mainVisualizer.bubbleSort();
         else if (id == 3) mainVisualizer.selectionSort();
@@ -173,7 +246,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
 
     @Override
     public void updateInformation(long totalTime, int comparisons, int swaps) {
-        timeLabel.setText("Total Time: " + (totalTime / 1000.0)+"s");
+        timeLabel.setText("Total Time: " + (totalTime / 1000.0) + "s");
         comparingLabel.setText("Comparisons: " + comparisons);
         swappingLabel.setText("Swaps: " + swaps);
     }
