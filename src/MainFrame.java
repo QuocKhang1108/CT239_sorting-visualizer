@@ -181,6 +181,7 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
             fileChooser = getFileChooser();
         });
 
+        exitMenuItem.addActionListener(e -> System.exit(0));
 
         fileMenu.add(openMenuItem);
         fileMenu.add(saveMenuItem);
