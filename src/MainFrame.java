@@ -212,6 +212,12 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         });
         int returnValue = fileChooser.showOpenDialog(null);
         if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            if (selectedFile.length() == 0) {
+                JOptionPane.showMessageDialog(null, "File is empty. Please select a different file.", "Error", JOptionPane.ERROR_MESSAGE);
+                return fileChooser;
+            }
+
             String firstLine = "";
             try (BufferedReader br = new BufferedReader(new FileReader(fileChooser.getSelectedFile()))) {
                 firstLine = br.readLine(); // get the first line
