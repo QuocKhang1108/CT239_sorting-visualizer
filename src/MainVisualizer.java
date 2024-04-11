@@ -175,15 +175,15 @@ public class MainVisualizer {
 
             for (int i = 0; i < arr.length - 1; i++) {
                 int j;
-                for (j = 0; j < arr.length - i - 1; j++) {
-                    drawColorComparingColumns(j, j + 1, CustomColor.comparingColor);
+                for (j = arr.length-1; j > i; j--) {
+                    drawColorComparingColumns(j, j - 1, CustomColor.comparingColor);
                     comparisons++;
-                    if (arr[j] > arr[j + 1]) {
+                    if (arr[j] < arr[j - 1]) {
                         swaps++;
-                        swap(j, j + 1);
+                        swap(j, j - 1);
                     }
                 }
-                drawColorColumn(j, CustomColor.sortedColor);
+                drawColorColumn(i, CustomColor.sortedColor);
             }
             long tempTime = System.currentTimeMillis();
             totalTime = tempTime - startTime;
