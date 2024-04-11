@@ -168,7 +168,6 @@ public class MainVisualizer {
             graphics = bufferStrategy.getDrawGraphics();
 
             startTime = System.currentTimeMillis();
-            Algorithm.bubbleSort(arr.clone());
 
             comparisons = 0;
             swaps = 0;
@@ -201,7 +200,6 @@ public class MainVisualizer {
             graphics = bufferStrategy.getDrawGraphics();
 
             startTime = System.currentTimeMillis();
-            Algorithm.insertionSort(arr.clone());
 
             comparisons = 0;
             swaps = 0;
@@ -241,7 +239,6 @@ public class MainVisualizer {
             graphics = bufferStrategy.getDrawGraphics();
 
             startTime = System.currentTimeMillis();
-            Algorithm.selectionSort(arr.clone());
 
             comparisons = 0;
             swaps = 0;
@@ -285,7 +282,6 @@ public class MainVisualizer {
             graphics = bufferStrategy.getDrawGraphics();
 
             startTime = System.currentTimeMillis();
-//            Algorithm.mergeSort(arr.clone());
 
             comparisons = 0;
             swaps = 0;
@@ -378,7 +374,6 @@ public class MainVisualizer {
             graphics = bufferStrategy.getDrawGraphics();
 
             startTime = System.currentTimeMillis();
-//            Algorithm.quickSort(arr.clone());
 
             comparisons = 0;
             swaps = 0;
