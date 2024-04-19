@@ -74,6 +74,7 @@ public class MainVisualizer {
                 x += width;
             }
             hasArray = true;
+            Algorithm.runAll(arr);
 
             listener.updateArray(arr);
             bufferStrategy.show();
@@ -107,6 +108,8 @@ public class MainVisualizer {
             columns[i] = column;
             x += width;
         }
+        Algorithm.runAll(arr);
+
         listener.updateArray(arr);
         bufferStrategy.show();
         graphics.dispose();
