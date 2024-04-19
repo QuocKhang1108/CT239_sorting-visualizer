@@ -35,6 +35,17 @@ public class MainVisualizer {
     }
 
     /////////////////////////////////////////DRAW////////////////////////////////////////////
+    public void drawArray(){
+        if (hasArray) {
+            graphics = bufferStrategy.getDrawGraphics();
+            for (int i = 0; i < arr.length; i++) {
+                columns[i].draw(graphics);
+            }
+            bufferStrategy.show();
+            graphics.dispose();
+        }
+    }
+
     public void createArray(String stringArr, int widthCanvas, int heightCanvas) {
         stringArr = stringArr.trim();
         if (stringArr.endsWith(",")) {

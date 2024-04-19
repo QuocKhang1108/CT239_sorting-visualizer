@@ -320,8 +320,8 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
 
     @Override
     public void onDrawArray() {
-//		if (mainVisualizer != null)
-//			mainVisualizer.drawArray();
+		if (mainVisualizer != null)
+			mainVisualizer.drawArray();
     }
 
     @Override
