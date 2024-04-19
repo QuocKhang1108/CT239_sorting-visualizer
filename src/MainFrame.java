@@ -181,6 +181,22 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
             fileChooser = getFileChooser();
         });
 
+        saveMenuItem.addActionListener(e -> {
+            try {
+                // Set the look and feel to 'Windows'
+                for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                    if ("Windows".equals(info.getName())) {
+                        UIManager.setLookAndFeel(info.getClassName());
+                        break;
+                    }
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+            saveToFileChooser();
+        });
+
         exitMenuItem.addActionListener(e -> System.exit(0));
 
         fileMenu.add(openMenuItem);
@@ -233,6 +249,63 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
             mainVisualizer.createArray(firstLine, canvas.getWidth(), canvas.getHeight()); // create the array from the file
         }
         return fileChooser;
+    }
+
+    private void saveToFileChooser() {
+        if (inputArea.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Array has not been created. Please create an array before saving.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Save to file");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        fileChooser.setAcceptAllFileFilterUsed(false);
+        fileChooser.setCurrentDirectory(new File("./file"));
+        fileChooser.setFileFilter(new FileFilter() {
+            @Override
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                return f.getName().endsWith(".txt");
+            }
+
+            @Override
+            public String getDescription() {
+                return "Text file (*.txt)";
+            }
+        });
+        int returnValue = fileChooser.showSaveDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String filePath = selectedFile.getAbsolutePath();
+            if (!filePath.endsWith(".txt")) {
+                filePath += ".txt";
+                selectedFile = new File(filePath);
+            }
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(selectedFile))) { // Open file in write mode
+                bw.write(inputArea.getText());
+                bw.newLine();
+                bw.write("\nBubble Sort:");
+                bw.write("\n        Comparisons: " + Algorithm.getComparisonsBubbleSort());
+                bw.write("\n              Swaps: " + Algorithm.getSwapsBubbleSort());
+                bw.write("\nSelection Sort:");
+                bw.write("\n        Comparisons: " + Algorithm.getComparisonsSelectionSort());
+                bw.write("\n              Swaps: " + Algorithm.getSwapsSelectionSort());
+                bw.write("\nInsertion Sort:");
+                bw.write("\n        Comparisons: " + Algorithm.getComparisonsInsertionSort());
+                bw.write("\n              Swaps: " + Algorithm.getSwapsInsertionSort());
+                bw.write("\nMerge Sort:");
+                bw.write("\n        Comparisons: " + Algorithm.getComparisonsMergeSort());
+                bw.write("\nQuick Sort:");
+                bw.write("\n        Comparisons: " + Algorithm.getComparisonsQuickSort());
+                bw.write("\n              Swaps: " + Algorithm.getSwapsQuickSort());
+                bw.write("\n\n" + new java.util.Date());
+                bw.write("\n--------------------------------------------------------------------------------\n");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        }
     }
 
     public void sortButtonClicked(int id) {
