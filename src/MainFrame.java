@@ -28,6 +28,8 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
     private JSlider fpsSlider;
     private JTextArea inputArea;
     private JScrollPane scrollPane;
+    private JButton comparisonButton;
+    private ComparisonFrame comparisonFrame;
 
     public MainFrame() {
         super();
@@ -154,6 +156,29 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         dataLabel.setBackground(CustomColor.mainBackground);
         dataLabel.setBounds(265, 690, 1250, 30);
         mainPanel.add(dataLabel);
+
+        comparisonButton = new JButton("Show Comparisons");
+        comparisonButton.setBounds(250, 650, 180, 30);
+        comparisonButton.setBackground(CustomColor.mainBackground);
+        comparisonButton.setBorder(null);
+        comparisonButton.setFocusPainted(false);
+        comparisonButton.setForeground(CustomColor.text);
+        comparisonButton.setFont(new Font(null, Font.BOLD, 15));
+
+        comparisonButton.addActionListener(e -> {
+            if (comparisonFrame == null || !comparisonFrame.isVisible()) {
+                comparisonFrame = new ComparisonFrame();
+                comparisonButton.setText("Hide Comparisons");
+                comparisonButton.setBackground(CustomColor.btnPressed);
+                comparisonButton.setForeground(CustomColor.textSelected);
+            } else {
+                comparisonFrame.dispose();
+                comparisonButton.setText("Show Comparisons");
+                comparisonButton.setBackground(CustomColor.mainBackground);
+                comparisonButton.setForeground(CustomColor.text);
+            }
+        });
+        mainPanel.add(comparisonButton);
     }
 
     private void addMenuBar() {
@@ -365,11 +390,6 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
     }
 
     public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainFrame().setVisible(true);
-
-            }
-        });
+        new MainFrame().setVisible(true);
     }
 }
