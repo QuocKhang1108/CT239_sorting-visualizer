@@ -333,14 +333,34 @@ public class MainFrame extends JFrame implements BtnPanel.SortButtonListener, Cu
         }
     }
 
+    private Thread sortingThread;
+
     public void sortButtonClicked(int id) {
-        if (id == 0) mainVisualizer.createArray(inputArea.getText(), canvas.getWidth(), canvas.getHeight());
-        else if (id == 1) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
-        else if (id == 2) mainVisualizer.bubbleSort();
-        else if (id == 3) mainVisualizer.selectionSort();
-        else if (id == 4) mainVisualizer.insertSort();
-        else if (id == 5) mainVisualizer.mergeSort();
-        else if (id == 6) mainVisualizer.quickSort();
+        // Hủy luồng hiện tại (nếu có) trước khi bắt đầu luồng mới
+        if (sortingThread != null && sortingThread.isAlive()) {
+            sortingThread.interrupt();
+            try {
+                sortingThread.join(); // Chờ đến khi luồng hiện tại dừng lại hoàn toàn
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        Runnable runnable = () -> {
+            if (id == 0) mainVisualizer.createArray(inputArea.getText(), canvas.getWidth(), canvas.getHeight());
+            else if (id == 1) mainVisualizer.createRandomArray(canvas.getWidth(), canvas.getHeight());
+            else{
+                mainVisualizer.createArray(inputArea.getText(), canvas.getWidth(), canvas.getHeight());
+                if (id == 2) mainVisualizer.bubbleSort();
+                else if (id == 3) mainVisualizer.selectionSort();
+                else if (id == 4) mainVisualizer.insertSort();
+                else if (id == 5) mainVisualizer.mergeSort();
+                else if (id == 6) mainVisualizer.quickSort();
+            }
+        };
+
+        sortingThread = new Thread(runnable);
+        sortingThread.start();
     }
 
     @Override
